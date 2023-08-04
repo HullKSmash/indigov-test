@@ -3,9 +3,6 @@ var expectedTotalRepos = '17';
 var expectedTsRepos = '5';
 var repoNames = [];
 var sortedRepoNames = [];
-var repoList;
-var lastRepo;
-
 
 describe('test github repos', () => {
   it('should visit Indigov landing page', () => {
@@ -25,14 +22,13 @@ describe('test github repos', () => {
   it('sorts the repos by name, descending', () => {
     cy.get('summary[role=button]').contains('Sort').click();
     cy.get('span[data-menu-button-text]').contains('Name').click();
-    cy.wait(1000); //have to wait for list to re-render; might be a better way to do this
+    cy.wait(1000);
 
     cy.get('div[id=org-repositories]').find('ul').as('repoList');
  
     cy.get('@repoList').find('li').find('a[data-hovercard-type=repository]').each((a) => {
       repoNames.push(a.text().trim());
       sortedRepoNames.push(a.text().trim());
-      cy.log(a.text());
     }).then( () => {
       expect(repoNames).to.deep.equal(sortedRepoNames.sort());
     });
@@ -41,6 +37,7 @@ describe('test github repos', () => {
   it('shows the correct clone link for the last sorted repo', () => {
     cy.get('div[id=org-repositories]').find('ul').as('repoList');
     cy.get('@repoList').find('a[data-hovercard-type=repository]').last().as('lastRepo');
+   
     cy.get('@lastRepo').then($lastRepo => {
       const lastRepoName = $lastRepo.text().trim();
       cy.wrap(lastRepoName).as('lastRepoName');
