@@ -1,0 +1,23 @@
+{
+  "name": "indigov-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress open": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HullKSmash/indigov-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HullKSmash/indigov-test/issues"
+  },
+  "homepage": "https://github.com/HullKSmash/indigov-test#readme",
+  "devDependencies": {
+    "cypress": "^12.17.3"
+  }
+}
