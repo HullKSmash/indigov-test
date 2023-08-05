@@ -4,9 +4,8 @@ This suite of tests runs on Cypress using Javascript and Chrome browser.  The te
 
 ## Setup
 
-To run these tests, first install Cypress using npm:
+Clone the indigov-test repository into your folder of choice.  Then, install Cypress using npm from your indigov-test folder home:
 ```
-cd /desired/project/location
 npm init
 npm install cypress --save-dev
 ```
