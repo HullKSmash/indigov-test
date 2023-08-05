@@ -2,6 +2,8 @@
 
 This suite of tests runs on Cypress using Javascript and Chrome browser.  The tests interact with the organization landing page and associated code repositories located at https://www.github.com/indigov-us.
 
+More notes on my testing approach, tool choice, and possible future improvements can be found in the testing-notes.md file.
+
 ## Setup
 
 Clone the indigov-test repository into your folder of choice.  Then, install Cypress using npm from your indigov-test folder home:
@@ -13,7 +15,7 @@ npm install cypress --save-dev
 You will need to have Node.js 16.x/18.x/20.x and a recent version of Chrome.
 
 The full system requirements for Cypress can be found here:
-    cy.get('div[id=org-repositories]').find('ul').as('repoList');
+https://docs.cypress.io/guides/getting-started/installing-cypress
 
 ## Run With Console
 From your project directory, enter
