@@ -39,8 +39,8 @@ describe('Sort and Filter Repos', () => {
 
     cy.get('@repoList').find(orgRepositoriesNameSelector).should((a) => {
       let repoName = a.text().trim();
-      repoNames.map((repoName) => repoName);
-      sortedRepoNames.map((repoName) => repoName);
+      repoNames.push(repoName);
+      sortedRepoNames.push(repoName);
 
       expect(repoNames).to.deep.equal(sortedRepoNames.sort());
     });
@@ -53,8 +53,8 @@ describe('Sort and Filter Repos', () => {
 
     cy.get('@repoList').find(orgRepositoriesNameSelector).should((a) => {
       let repoName = a.text().trim();
-      repoNames.map((repoName) => repoName);
-      sortedRepoNames.map((repoName) => repoName);
+      repoNames.push(repoName);
+      sortedRepoNames.push(repoName);
 
       expect(repoNames).to.deep.equal(sortedRepoNames.sort());
     });
