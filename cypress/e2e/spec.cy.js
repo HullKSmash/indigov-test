@@ -9,8 +9,6 @@ const orgRepositoriesNameSelector = 'a[data-hovercard-type=repository]';
 const orgName = 'Indigov';
 const expectedTotalRepos = '17';
 const expectedTsRepos = '5';
-var repoNames = [];
-var sortedRepoNames = [];
 
 describe('Github Landing Page and Total Repos', () => {
   it('should visit Indigov landing page', () => {
@@ -36,30 +34,37 @@ describe('Sort and Filter Repos', () => {
   });
   
   it('sorts the TS repos by name, descending', () => {
-    //Have to wait for list to re-render after sort.  Cypress does this implicitly on 
-    //a new page redirect, but not for this type of click.  The list is available 
-    //in the DOM the entire time, so waiting on elements to be available also does not work.
-    cy.wait(500);  
- 
-    cy.get('@repoList').find(orgRepositoriesNameSelector).each((a) => {
-      repoNames.push(a.text().trim());
-      sortedRepoNames.push(a.text().trim());
-    }).then( () => {
+    let repoNames = [];
+    let sortedRepoNames = [];
+
+    cy.get('@repoList').find(orgRepositoriesNameSelector).should((a) => {
+      let repoName = a.text().trim();
+      repoNames.push(repoName);
+      sortedRepoNames.push(repoName);
+
       expect(repoNames).to.deep.equal(sortedRepoNames.sort());
     });
   });
 
   it('shows the correct clone link for the last sorted repo', () => {
-    //Have to wait for list to re-render after sort.  Cypress does this implicitly on 
-    //a new page redirect, but not for this type of click.  The list is available 
-    //in the DOM the entire time, so waiting on elements to be available also does not work.
-    cy.wait(500);
-    cy.get('@repoList').find(orgRepositoriesNameSelector).last().as('lastRepo')
-      .then($lastRepo => {
-        //Store the name of the last repo for link verification before clicking on it
-      const lastRepoName = $lastRepo.text().trim();
-      cy.wrap(lastRepoName).as('lastRepoName');
+    //Ensure repos are sorted before getting last one
+    let repoNames = [];
+    let sortedRepoNames = [];
+
+    cy.get('@repoList').find(orgRepositoriesNameSelector).should((a) => {
+      let repoName = a.text().trim();
+      repoNames.push(repoName);
+      sortedRepoNames.push(repoName);
+
+      expect(repoNames).to.deep.equal(sortedRepoNames.sort());
     });
+
+    cy.get('@repoList').find(orgRepositoriesNameSelector).last().as('lastRepo')
+      .then(lastRepo => {
+        //Store the name of the last repo for link verification before clicking on it
+        const lastRepoName = lastRepo.text().trim();
+        cy.wrap(lastRepoName).as('lastRepoName');
+      });
 
     cy.get('@lastRepo').click();
     cy.get('get-repo').click();
