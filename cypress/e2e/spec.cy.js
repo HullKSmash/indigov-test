@@ -27,6 +27,8 @@ describe('Sort and Filter Repos', () => {
     cy.get(orgRepositoriesListSelector).find('ul').as('repoList');
     cy.get(repoFilterDropdownSelector).contains('Language').click();
     cy.get(repoFilterItemSelector).contains('TypeScript').click();
+    cy.get(repoFilterDropdownSelector).contains('Sort').click();
+    cy.get(repoFilterItemSelector).contains('Name').click();
   });
 
   it('contains the expected number of TypeScript repos', () => {
@@ -34,13 +36,10 @@ describe('Sort and Filter Repos', () => {
   });
   
   it('sorts the TS repos by name, descending', () => {
-    cy.get(repoFilterDropdownSelector).contains('Sort').click();
-    cy.get(repoFilterItemSelector).contains('Name').click();
-    
     //Have to wait for list to re-render after sort.  Cypress does this implicitly on 
     //a new page redirect, but not for this type of click.  The list is available 
     //in the DOM the entire time, so waiting on elements to be available also does not work.
-    cy.wait(1000);  
+    cy.wait(500);  
  
     cy.get('@repoList').find(orgRepositoriesNameSelector).each((a) => {
       repoNames.push(a.text().trim());
@@ -51,8 +50,10 @@ describe('Sort and Filter Repos', () => {
   });
 
   it('shows the correct clone link for the last sorted repo', () => {
-    cy.get(repoFilterDropdownSelector).contains('Sort').click();
-    cy.get(repoFilterItemSelector).contains('Name').click();
+    //Have to wait for list to re-render after sort.  Cypress does this implicitly on 
+    //a new page redirect, but not for this type of click.  The list is available 
+    //in the DOM the entire time, so waiting on elements to be available also does not work.
+    cy.wait(500);
     cy.get('@repoList').find(orgRepositoriesNameSelector).last().as('lastRepo')
       .then($lastRepo => {
         //Store the name of the last repo for link verification before clicking on it
