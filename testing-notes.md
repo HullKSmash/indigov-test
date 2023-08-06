@@ -16,3 +16,8 @@ work with developers to add permanent testing IDs to the elements used for autom
 There are a few places where I reuse code that could be placed into separate functions.  
 For this small project, this works fine, but for more tests I would export common functions 
 (like getting lists and ensuring they're sorted) for better maintainability.
+
+# App Response Flakiness
+I occasionally run into an error from the Github app itself, not my tests, that interrupts 
+my beforeEach block for sorting repos.  After trying a few approaches, this seems to have little to do with specific features of my tests, and they often pass on a retry.  This is 
+hard to diagnose and further debug without access to the app itself and related logs.
