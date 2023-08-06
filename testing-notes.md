@@ -12,9 +12,7 @@ use them; otherwise, I had to rely on other permanent tags or attributes combine
 nesting of element get/find.  If this were an application I wanted to test further, I would 
 work with developers to add permanent testing IDs to the elements used for automated tests.
 
-# beforeEach and Sorting
-For the second block of tests, I would have liked to move the sort-by-name functionality 
-up to the beforeEach hook.  It's used by two of the three tests in the block and won't 
-interfere with the third.  However, doing so kept tripping an unhandled promise error 
-from the application itself, causing Cypress to skip and fail the rest of the tests. This error was not visible in the browser console, so I would need access to the 
-application and its logs to properly debug this issue.
+# Modular Refactor of Reusable Functions
+There are a few places where I reuse code that could be placed into separate functions.  
+For this small project, this works fine, but for more tests I would export common functions 
+(like getting lists and ensuring they're sorted) for better maintainability.
